@@ -1,6 +1,15 @@
 class WarPlayer
-	def initialize(card)
-		@cards = [card]
+
+	def initialize(cards)
+		if(cards == [])
+			@cards = []
+		else
+			@cards = [cards]
+		end
+	end
+
+	def cards
+		@cards
 	end
 	
 
