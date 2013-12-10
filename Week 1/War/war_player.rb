@@ -1,19 +1,7 @@
 class WarPlayer
 
-	def initialize(cards)
-		if(cards == [])
-			@cards = []
-		else
-			@cards = [cards]
-		end
-	end
-
-	def cards
-		@cards
-	end
-	
-	def name
-		@name
+	def initialize(cards=[])
+		@cards = cards
 	end
 
 	def play_top_card
@@ -27,5 +15,9 @@ class WarPlayer
 
 	def take_cards(cards)
 		@cards.push(*cards)
+	end
+
+	def take_card_from_deck(card)
+		@cards.unshift(card)
 	end
 end
