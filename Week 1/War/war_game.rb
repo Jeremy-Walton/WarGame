@@ -2,7 +2,7 @@ class WarGame
 	attr_reader :deck, :player1, :player2, :winner
 
 	def initialize(player1=WarPlayer.new, player2=WarPlayer.new)	
-		@player1, @player2 = player1, player2
+		@player1, @player2, @player3 = player1, player2
 		@deck = CardDeck.new
 		@cardsontable = []
 	end
@@ -16,15 +16,14 @@ class WarGame
 
 	def play_round(cardsontable=[])
 		if (@player1.number_of_cards == 0)
-			@winner = "player 1"
+			@winner = "player 2"
 		else
 			if (@player2.number_of_cards == 0)
-			@winner = "player 2"
+			@winner = "player 1"
 			else
 				card1 = @player1.play_top_card
 				card2 = @player2.play_top_card
-				cardsontable.push(card1)
-				cardsontable.push(card2)
+				cardsontable.push(card1, card2)
 				
 					if (card1.value > card2.value)
 						@player1.take_cards(cardsontable)
