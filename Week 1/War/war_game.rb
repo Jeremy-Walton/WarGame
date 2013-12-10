@@ -4,6 +4,7 @@ class WarGame
 	def initialize(player1=WarPlayer.new, player2=WarPlayer.new)	
 		@player1, @player2 = player1, player2
 		@deck = CardDeck.new
+		@cardsontable = []
 	end
 
 	def deal
@@ -13,7 +14,7 @@ class WarGame
 		end
 	end
 
-	def play_round
+	def play_round(cardsontable=[])
 		if (@player1.number_of_cards == 0)
 			@winner = "player 1"
 		else
@@ -22,14 +23,21 @@ class WarGame
 			else
 				card1 = @player1.play_top_card
 				card2 = @player2.play_top_card
-				cards = [card1, card2]
-				unless card1.value == card2.value
+				cardsontable.push(card1)
+				cardsontable.push(card2)
+				
 					if (card1.value > card2.value)
-						player1.take_cards(cards)
+						@player1.take_cards(cardsontable)
+						
 					else
-						player2.take_cards(cards)
+						if (card1.value < card2.value)
+							@player2.take_cards(cardsontable)
+						else
+							self.play_round(cardsontable)
+						end
 					end
-				end
+				
+				
 			end
 		end
 	end
