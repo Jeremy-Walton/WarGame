@@ -11,7 +11,6 @@ class WarPlayer
 	def number_of_cards
 		@cards.count
 	end
-	
 
 	def take_cards(cards)
 		@cards.push(*cards)

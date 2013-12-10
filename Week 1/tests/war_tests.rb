@@ -12,8 +12,10 @@ class TestWar < MiniTest::Unit::TestCase
 	end
 
 	def test_game_deal
-		war = WarGame.new
-		war.deal
+		player1 = WarPlayer.new()
+		player2 = WarPlayer.new()
+		war = WarGame.new(player1, player2)
+		war.deal([player1, player2])
 		assert_equal(26, war.player1.number_of_cards)
 		assert_equal(26, war.player2.number_of_cards)
 	end
@@ -22,27 +24,27 @@ class TestWar < MiniTest::Unit::TestCase
 		player1 = WarPlayer.new([PlayingCard.new('3')])
 		player2 = WarPlayer.new([PlayingCard.new('2')])
 		war = WarGame.new(player1, player2)
-		war.play_round()
-		assert_equal(2, player1.number_of_cards)
-		assert_equal(0, player2.number_of_cards)
+		war.play_round([], [player1, player2])
+		assert_equal(2, war.player1.number_of_cards)
+		assert_equal(0, war.player2.number_of_cards)
 	end
 
 	def test_player2_wins
 		player1 = WarPlayer.new([PlayingCard.new('2')])
 		player2 = WarPlayer.new([PlayingCard.new('3')])
 		war = WarGame.new(player1, player2)
-		war.play_round()
-		assert_equal(0, player1.number_of_cards)
-		assert_equal(2, player2.number_of_cards)
+		war.play_round([], [player1, player2])
+		assert_equal(0, war.player1.number_of_cards)
+		assert_equal(2, war.player2.number_of_cards)
 	end
 
 	def test_players_tie
 		player1 = WarPlayer.new([PlayingCard.new('2')])
 		player2 = WarPlayer.new([PlayingCard.new('2')])
 		war = WarGame.new(player1, player2)
-		war.play_round()
-		assert_equal(0, player1.number_of_cards)
-		assert_equal(0, player2.number_of_cards)
+		war.play_round([], [player1, player2])
+		assert_equal(0, war.player1.number_of_cards)
+		assert_equal(0, war.player2.number_of_cards)
 	end
 
 	def test_deck_has_all_cards
@@ -51,9 +53,11 @@ class TestWar < MiniTest::Unit::TestCase
 	end
 
 	def test_cards_are_shuffled
-		war = WarGame.new
+		player1 = WarPlayer.new()
+		player2 = WarPlayer.new()
+		war = WarGame.new(player1, player2)
 		war.deck.shuffle
-		war.deal
+		war.deal([player1, player2])
 		player1cards = []
 		player2cards = []
 		while (war.player1.number_of_cards > 0) do
@@ -68,8 +72,10 @@ class TestWar < MiniTest::Unit::TestCase
 	end
 
 	def test_game_works
-		war = WarGame.new
-		war.play_game
+		player1 = WarPlayer.new()
+		player2 = WarPlayer.new()
+		war = WarGame.new([player1, player2])
+		war.play_game([player1, player2])
 	end
 
 end
