@@ -12,6 +12,9 @@ class WarPlayer
 		@cards
 	end
 	
+	def name
+		@name
+	end
 
 	def play_top_card
 		@cards.pop
