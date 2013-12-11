@@ -1,5 +1,5 @@
 class WarGame
-	attr_reader :deck, :player1, :player2, :player3, :winner, :players
+	attr_reader :deck, :player1, :player2, :player3, :winner, :players, :card1, :card2, :card3
 
 	def initialize(player1, player2, player3=nil)	
 		@player1, @player2, @player3 = player1, player2, player3
@@ -23,7 +23,7 @@ class WarGame
 			card1 = player1.play_top_card
 			card2 = player2.play_top_card
 			cards_on_table.push(card1, card2)
-			
+			cards_on_table.shuffle!
 			player1.take_cards(cards_on_table) if(card1.value > card2.value)
 			player2.take_cards(cards_on_table) if(card2.value > card1.value)
 			play_round(cards_on_table, players) if(card1.value == card2.value)
@@ -36,34 +36,42 @@ class WarGame
 	end
 
 	def play_three_way_round(cards_on_table=[], players)
+		puts "start of round"
 		player1 = players.at(0)
 		player2 = players.at(1)
 		player3 = players.at(2)
 		puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
-
-		#problem is that when in a war and someone runs out of cards, it finished the round without giving the cards placed in the middle back.
-
+			
 		unless (player1.number_of_cards == 0 || player2.number_of_cards == 0 || player3.number_of_cards == 0)
-			card1 = player1.play_top_card
-			card2 = player2.play_top_card
-			card3 = player3.play_top_card
+			@card1, @card2, @card3 = player1.play_top_card, player2.play_top_card, player3.play_top_card
 			cards_on_table.push(card1, card2, card3)
-			unless ((card1.value > card2.value && card1.value > card3.value) || (card2.value > card1.value && card2.value > card3.value) || (card3.value > card1.value && card3.value > card2.value))
+			cards_on_table.shuffle!
+			unless ((@card1.value > @card2.value && @card1.value > @card3.value) || (@card2.value > @card1.value && @card2.value > @card3.value) || (@card3.value > @card1.value && @card3.value > @card2.value))
 				puts 'war'
 				play_three_way_round(cards_on_table, players)
 				puts 'end of war'
 			else
-				player1.take_cards(cards_on_table) if(card1.value > card2.value && card1.value > card3.value)
-				player2.take_cards(cards_on_table) if(card2.value > card1.value && card2.value > card3.value)
-				player3.take_cards(cards_on_table) if(card3.value > card1.value && card3.value > card2.value)
+				player1.take_cards(cards_on_table) if(@card1.value > @card2.value && @card1.value > @card3.value)
+				player2.take_cards(cards_on_table) if(@card2.value > @card1.value && @card2.value > @card3.value)
+				player3.take_cards(cards_on_table) if(@card3.value > @card1.value && @card3.value > @card2.value)
+				cards_on_table = []
 				puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
 			end
 		else
 			@players.delete_at(0) if (player1.number_of_cards == 0)
 			@players.delete_at(1) if (player2.number_of_cards == 0)
 			@players.delete_at(2) if (player3.number_of_cards == 0)
+			puts cards_on_table.to_s 
+			if (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards != 52)
+				#Here is how to single out the running out of card problem. Who to give the cards is the next step.
+				puts 'whoops'
+				@players.at(0).take_cards(cards_on_table) 
+				cards_on_table = []
+				puts 'number 0f cards = ' + (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards).to_s
+			end  
+			puts cards_on_table.to_s 
 		end
-		puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
+		puts "end of round"
 	end
 
 	def play_game(players)

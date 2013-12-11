@@ -73,14 +73,14 @@ class TestWar < MiniTest::Unit::TestCase
 		
 	end
 
-	def _game_works
-		player1 = WarPlayer.new([], 'q')
-		player2 = WarPlayer.new([], 't')
+	def test_game_works
+		player1 = WarPlayer.new([], 'One')
+		player2 = WarPlayer.new([], 'Two')
 		war = WarGame.new(player1, player2)
 		war.play_game([player1, player2])
 	end
 
-	def test_three_player_game_works
+	def _three_player_game_works
 		player1 = WarPlayer.new([], "One")
 		player2 = WarPlayer.new([], "Two")
 		player3 = WarPlayer.new([], "Three")
