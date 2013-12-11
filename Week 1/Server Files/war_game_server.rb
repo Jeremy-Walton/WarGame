@@ -33,11 +33,11 @@ class WarGameServer
 
 	def start_game
 			puts 'Starting game'
-			@client_list.at(0).puts('What is your name?')
-			name = @client_list.at(0).gets.chomp
+			@client_list[0].puts('What is your name?')
+			name = @client_list[0].gets.chomp
 			puts name
-			@client_list.at(1).puts('What is your name?')
-			name = @client_list.at(1).gets.chomp
+			@client_list[1].puts('What is your name?')
+			name = @client_list[1].gets.chomp
 		#@client_list.at(0).puts 'Game starting'
 		#@client_list.at(1).puts 'Game starting'
 		#game = WarGame.new(@client_list.at(0).player, @client_list.at(1).player)

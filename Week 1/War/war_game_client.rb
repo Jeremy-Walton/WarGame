@@ -17,11 +17,12 @@ class WarGameClient
 		puts 'You connected'
 	end
 
-	def run	
-		while true
+	def run		
 			@line = @s.gets.chomp
 			puts @line
-		end
+			name = STDIN.gets.chomp
+			@s.puts name
+			@s.gets.chomp
 	end
 
 end
