@@ -1,11 +1,16 @@
 class WarPlayer
 
-	def initialize(cards=[])
+	def initialize(cards=[], name)
 		@cards = cards
+		@name = name
 	end
 
 	def play_top_card
 		@cards.pop
+	end
+
+	def name
+		@name
 	end
 
 	def number_of_cards
