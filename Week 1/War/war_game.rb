@@ -9,8 +9,9 @@ class WarGame
 
 	def deal(players)
 		while(@deck.number_of_cards > 0) do
-			players.each do |players|
-				players.take_cards(@deck.deal)
+			players.each do |player|
+				player.take_cards(@deck.deal)
+				puts 'dealing card to ' + player.name
 			end
 		end
 	end
@@ -22,14 +23,23 @@ class WarGame
 		unless (player1.number_of_cards == 0 || player2.number_of_cards == 0)
 			card1 = player1.play_top_card
 			card2 = player2.play_top_card
+			puts 'Player 1 has a ' + card1.to_s + '. Player 2 has a ' + card2.to_s
 			cards_on_table.push(card1, card2)
 			cards_on_table.shuffle!
-			player1.take_cards(cards_on_table) if(card1.value > card2.value)
-			player2.take_cards(cards_on_table) if(card2.value > card1.value)
-			play_round(cards_on_table, players) if(card1.value == card2.value)
-			puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s
+			if(card1.value > card2.value)
+				puts 'Player 1 won the round.'
+				player1.take_cards(cards_on_table) 
+			end
+			if(card2.value > card1.value)
+				puts 'Player 2 won the round.'
+				player2.take_cards(cards_on_table)
+			end
+			if(card1.value == card2.value)
+				puts "Tie! It's a war"
+				play_round(cards_on_table, players)
+			end
+			puts 'Player 1 has ' + player1.number_of_cards.to_s + " cards. Player 2 has " + player2.number_of_cards.to_s + ' cards.'
 		else
-			puts 'someone won'
 			@winner = player1.name if(player2.number_of_cards == 0)
 			@winner = player2.name if(player1.number_of_cards == 0)
 		end
@@ -72,6 +82,10 @@ class WarGame
 			puts cards_on_table.to_s 
 		end
 		puts "end of round"
+	end
+
+	def winner
+		@winner
 	end
 
 	def play_game(players)

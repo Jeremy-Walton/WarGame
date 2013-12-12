@@ -7,42 +7,114 @@ require_relative '../war/war_game_client.rb'
 require_relative '../server files/war_game_server.rb'
 
 class TestWarSocketServer < MiniTest::Unit::TestCase
-	def test_listening
-		Thread.new do
-			server = WarGameServer.new(2222)
-		end
-		Thread.new do
-			war_client = WarGameClient.new(2222)
-			war_client.connect
-			war_client.run
-		end
+
+	def setup
+		@server = WarGameServer.new(2222)
+	end
+
+	def teardown
+		@server.close_server
+	end
+	def est_listening
+
+		war_client = WarGameClient.new(2222)
 		pass('Connection accepted')
 	rescue Errno::ECONNREFUSED
 		flunk('Refused connection')
 	end
 
-	def test_server_accepts_connections
-		Thread.new do
-			server = WarGameServer.new(4444)
-		end
-		Thread.new do
-			war_client1 = WarGameClient.new(4444)
-			war_client2 = WarGameClient.new(4444)
-			war_client1.connect
-			war_client2.connect
-			war_client1.run
-			war_client2.run
-		end
+	def est_server_accepts_connections
+		
+			war_client1 = WarGameClient.new(2222)
+			war_client2 = WarGameClient.new(2222)
+			@server.accept_connections
+			assert_equal(true, war_client1.is_connected(@server.check_connection))	
+			assert_equal(true, war_client2.is_connected(@server.check_connection))
 	end
 
-	def est_server_game_starts
-		server = WarGameServer.new(1234)
-		war_client1 = WarGameClient.new
-		war_client2 = WarGameClient.new
-		server.accept_connections
-		war_client1.connect(1234)
-		war_client2.connect(1234)
-		server.start_game
+	def est_server_gets_names
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('jem')
+		@server.get_name(0)
+		war_client2.give_name('bob')
+		@server.get_name(1)	
+
+		assert_equal('jem', @server.player_name)
+	end
+
+	def est_server_creates_game
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('One')
+		@server.get_name(0)
+		war_client2.give_name('Two')
+		@server.get_name(1)
+		@server.create_game
+
+		assert_equal(true, @server.game != nil)
+		
+	end
+
+	def est_server_deals_cards
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('One')
+		@server.get_name(0)
+		war_client2.give_name('Two')
+		@server.get_name(1)
+		@server.create_game
+		@server.deal_to_players
+		assert_equal(26, @server.player)
+		
+	end
+
+	def est_server_shuffles_cards
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('One')
+		@server.get_name(0)
+		war_client2.give_name('Two')
+		@server.get_name(1)
+		@server.create_game
+		deck1 = @server.deck
+		@server.shuffle_deck
+		deck2 = @server.deck
+		assert_equal(false, deck1 == deck2)
+		
+	end
+
+	def est_server_plays_one_round
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('One')
+		@server.get_name(0)
+		war_client2.give_name('Two')
+		@server.get_name(1)
+		@server.create_game
+		@server.deal_to_players
+		@server.play_one_round
+		#Since the deck wasn't shuffled, player 1 always wins
+		assert_equal(27, @server.player)
+		
+	end
+
+	def test_server_runs_game
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('Fred')
+		@server.get_name(0)
+		war_client2.give_name('Jeremy')
+		@server.get_name(1)
+		@server.create_game
+		@server.run_game
+		
 	end
 
 end

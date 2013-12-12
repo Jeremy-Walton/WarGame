@@ -7,26 +7,30 @@ class WarGameClient
 	def initialize(port)
 		@hostname = 'localhost'
 		@port = port
+		@s = TCPSocket.open(@hostname,@port)
+		puts 'You connected'
 		#@player = WarPlayer.new([], name)
 		#run
 		#@s.close
 	end
 
-	def connect
-		@s = TCPSocket.open(@hostname,@port)
-		puts 'You connected'
-	end
-
-	def run		
-			@line = @s.gets.chomp
-			puts @line
+	def give_name(name='')
+		if(name == '')
+			puts 'What is your name?'
 			name = STDIN.gets.chomp
 			@s.puts name
-			@s.gets.chomp
+		else
+			@s.puts name
+		end
+	end
+
+	def is_connected(message)
+		return true if(message == 'Good')
 	end
 
 end
 
-war_client = WarGameClient.new(1234)
-war_client.connect
-war_client.run
+#war_client = WarGameClient.new(1234)
+#war_client.connect
+#war_client.is_connected
+#war_client.run
