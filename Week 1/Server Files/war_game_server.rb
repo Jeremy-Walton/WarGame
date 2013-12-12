@@ -13,22 +13,6 @@ class WarGameServer
 		@port = port
 		@names = []
 		puts 'Server created on port: ' + @port.to_s
-		#accept_connections
-		#get_names
-		#start_game
-		#loop {   
-		#	            
-  		#		Thread.start(@server.accept) do |client|
-  		#				@client_list.push(client) 
-    	#				client.puts("Connection made #{@client_list.count}")
-    	#				if (@client_list.count == 1)
-  		#					client.puts('Waiting for another player...')
-  		#				end
-    	#				if (@client_list.count == 2)
-  		#					start_game
-  		#				end
-  		#		end
-		#}
 	end
 
 	def check_connection
@@ -44,14 +28,20 @@ class WarGameServer
 		puts('Player 1 Connected')
 		@client_list.push(@server.accept)
 		puts('Player 2 Connected')
-		puts "Two people are connected"
+		broadcast("Two people are connected")
+	end
+
+	def broadcast(message)
+		@client_list.each do |client|
+			client.puts message
+		end
 	end
 
 	def get_name(index)
 		
 		@names.push(@client_list[index].gets.chomp)
-		puts 'Hi ' + @names[index] + ", welcome to the war game server."
-		
+		@client_list[index].puts 'Hi ' + @names[index] + ", welcome to the war game server."
+		puts @names[index]
 	end
 
 	def create_game
@@ -67,18 +57,35 @@ class WarGameServer
 		shuffle_deck
 		deal_to_players
 		while @game.winner == nil
+			wait_for_message
 			play_one_round
+			broadcast('Round over')
 		end
-		puts @game.winner + ' won!'
+		broadcast(@game.winner + ' won!')
+	end
+
+	def wait_for_message
+		message = @client_list[0].gets.chomp
+		if(message == '')
+
+		else		
+			@client_list[0].puts 'Please just press enter'
+		end
+		message = @client_list[1].gets.chomp
+		if(message == '')
+
+		else		
+			@client_list[1].puts 'Please just press enter'
+		end
 	end
 
 	def deal_to_players
-		puts 'Dealing'
+		broadcast('Dealing')
 		@game.deal([@player1, @player2])
 	end
 
 	def shuffle_deck
-		puts 'Shuffling deck'
+		broadcast('Shuffling deck')
 		@game.deck.shuffle
 	end
 
@@ -105,4 +112,9 @@ class WarGameServer
 
 end
 
-#war_server = WarGameServer.new(1234)
+war_server = WarGameServer.new(1234)
+war_server.accept_connections
+war_server.get_name(0)
+war_server.get_name(1)
+war_server.create_game
+war_server.run_game

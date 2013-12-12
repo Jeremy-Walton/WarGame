@@ -15,7 +15,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 	def teardown
 		@server.close_server
 	end
-	def est_listening
+	def test_listening
 
 		war_client = WarGameClient.new(2222)
 		pass('Connection accepted')
@@ -23,7 +23,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		flunk('Refused connection')
 	end
 
-	def est_server_accepts_connections
+	def test_server_accepts_connections
 		
 			war_client1 = WarGameClient.new(2222)
 			war_client2 = WarGameClient.new(2222)
@@ -32,7 +32,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 			assert_equal(true, war_client2.is_connected(@server.check_connection))
 	end
 
-	def est_server_gets_names
+	def test_server_gets_names
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections
@@ -44,7 +44,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		assert_equal('jem', @server.player_name)
 	end
 
-	def est_server_creates_game
+	def test_server_creates_game
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections
@@ -58,7 +58,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		
 	end
 
-	def est_server_deals_cards
+	def test_server_deals_cards
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections
@@ -72,7 +72,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		
 	end
 
-	def est_server_shuffles_cards
+	def test_server_shuffles_cards
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections
@@ -88,7 +88,7 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		
 	end
 
-	def est_server_plays_one_round
+	def test_server_plays_one_round
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections
@@ -104,7 +104,20 @@ class TestWarSocketServer < MiniTest::Unit::TestCase
 		
 	end
 
-	def test_server_runs_game
+	def test_server_runs_game_automatically
+		war_client1 = WarGameClient.new(2222)
+		war_client2 = WarGameClient.new(2222)
+		@server.accept_connections
+		war_client1.give_name('Fred')
+		@server.get_name(0)
+		war_client2.give_name('Jeremy')
+		@server.get_name(1)
+		@server.create_game
+		@server.run_game
+		
+	end
+
+	def test_server_runs_game_with_prompts
 		war_client1 = WarGameClient.new(2222)
 		war_client2 = WarGameClient.new(2222)
 		@server.accept_connections

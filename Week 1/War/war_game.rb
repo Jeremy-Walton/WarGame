@@ -11,7 +11,6 @@ class WarGame
 		while(@deck.number_of_cards > 0) do
 			players.each do |player|
 				player.take_cards(@deck.deal)
-				puts 'dealing card to ' + player.name
 			end
 		end
 	end
