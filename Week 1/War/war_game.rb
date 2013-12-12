@@ -5,8 +5,23 @@ class WarGame
 		@player1, @player2, @player3 = player1, player2, player3
 		@deck = CardDeck.new
 		@cardsontable = []
+		@message1 = ''
+		@message2 = ''
+		@message3 = ''
 	end
 
+	def message1
+		@message1
+	end
+
+	def message2
+		@message2
+	end
+
+	def message3
+		@message2
+	end
+	
 	def deal(players)
 		while(@deck.number_of_cards > 0) do
 			players.each do |player|
@@ -22,22 +37,22 @@ class WarGame
 		unless (player1.number_of_cards == 0 || player2.number_of_cards == 0)
 			card1 = player1.play_top_card
 			card2 = player2.play_top_card
-			puts 'Player 1 has a ' + card1.to_s + '. Player 2 has a ' + card2.to_s
+			@message1 = 'Player 1 has a ' + card1.to_s + '. Player 2 has a ' + card2.to_s
 			cards_on_table.push(card1, card2)
 			cards_on_table.shuffle!
 			if(card1.value > card2.value)
-				puts 'Player 1 won the round.'
+				@message2 = 'Player 1 won the round.'
 				player1.take_cards(cards_on_table) 
 			end
 			if(card2.value > card1.value)
-				puts 'Player 2 won the round.'
+				@message2 = 'Player 2 won the round.'
 				player2.take_cards(cards_on_table)
 			end
 			if(card1.value == card2.value)
-				puts "Tie! It's a war"
+				@message2 = "Tie! It's a war"
 				play_round(cards_on_table, players)
 			end
-			puts 'Player 1 has ' + player1.number_of_cards.to_s + " cards. Player 2 has " + player2.number_of_cards.to_s + ' cards.'
+			@message3 = 'Player 1 has ' + player1.number_of_cards.to_s + " cards. Player 2 has " + player2.number_of_cards.to_s + ' cards.'
 		else
 			@winner = player1.name if(player2.number_of_cards == 0)
 			@winner = player2.name if(player1.number_of_cards == 0)

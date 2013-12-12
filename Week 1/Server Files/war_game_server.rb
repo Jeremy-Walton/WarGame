@@ -59,7 +59,7 @@ class WarGameServer
 		while @game.winner == nil
 			wait_for_message
 			play_one_round
-			broadcast('Round over')
+			broadcast('Round over, here are the results: ' + @game.message1 + ' \n ' + @game.message2 + ' \n ' + @game.message3)
 		end
 		broadcast(@game.winner + ' won!')
 	end

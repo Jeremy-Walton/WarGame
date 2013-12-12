@@ -1,4 +1,5 @@
 require 'socket'
+require_relative 'war_player.rb'
 
 class WarGameClient
 	attr_reader :line
