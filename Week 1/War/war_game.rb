@@ -1,5 +1,5 @@
 class WarGame
-	attr_reader :deck, :player1, :player2, :player3, :winner, :players, :card1, :card2, :card3
+	attr_reader :deck, :player1, :player2, :player3, :winner, :players
 
 	def initialize(player1, player2, player3=nil)	
 		@player1, @player2, @player3 = player1, player2, player3
@@ -19,7 +19,7 @@ class WarGame
 	end
 
 	def message3
-		@message2
+		@message3
 	end
 	
 	def deal(players)
@@ -49,7 +49,7 @@ class WarGame
 				player2.take_cards(cards_on_table)
 			end
 			if(card1.value == card2.value)
-				@message2 = "Tie! It's a war"
+				puts "There was a war"
 				play_round(cards_on_table, players)
 			end
 			@message3 = 'Player 1 has ' + player1.number_of_cards.to_s + " cards. Player 2 has " + player2.number_of_cards.to_s + ' cards.'
@@ -59,44 +59,44 @@ class WarGame
 		end
 	end
 
-	def play_three_way_round(cards_on_table=[], players)
-		puts "start of round"
-		player1 = players.at(0)
-		player2 = players.at(1)
-		player3 = players.at(2)
-		puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
-			
-		unless (player1.number_of_cards == 0 || player2.number_of_cards == 0 || player3.number_of_cards == 0)
-			@card1, @card2, @card3 = player1.play_top_card, player2.play_top_card, player3.play_top_card
-			cards_on_table.push(card1, card2, card3)
-			cards_on_table.shuffle!
-			unless ((@card1.value > @card2.value && @card1.value > @card3.value) || (@card2.value > @card1.value && @card2.value > @card3.value) || (@card3.value > @card1.value && @card3.value > @card2.value))
-				puts 'war'
-				play_three_way_round(cards_on_table, players)
-				puts 'end of war'
-			else
-				player1.take_cards(cards_on_table) if(@card1.value > @card2.value && @card1.value > @card3.value)
-				player2.take_cards(cards_on_table) if(@card2.value > @card1.value && @card2.value > @card3.value)
-				player3.take_cards(cards_on_table) if(@card3.value > @card1.value && @card3.value > @card2.value)
-				cards_on_table = []
-				puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
-			end
-		else
-			@players.delete_at(0) if (player1.number_of_cards == 0)
-			@players.delete_at(1) if (player2.number_of_cards == 0)
-			@players.delete_at(2) if (player3.number_of_cards == 0)
-			puts cards_on_table.to_s 
-			if (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards != 52)
-				#Here is how to single out the running out of card problem. Who to give the cards is the next step.
-				puts 'whoops'
-				@players.at(0).take_cards(cards_on_table) 
-				cards_on_table = []
-				puts 'number 0f cards = ' + (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards).to_s
-			end  
-			puts cards_on_table.to_s 
-		end
-		puts "end of round"
-	end
+#	def play_three_way_round(cards_on_table=[], players)
+#		puts "start of round"
+#		player1 = players.at(0)
+#		player2 = players.at(1)
+#		player3 = players.at(2)
+#		puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
+#			
+#		unless (player1.number_of_cards == 0 || player2.number_of_cards == 0 || player3.number_of_cards == 0)
+#			@card1, @card2, @card3 = player1.play_top_card, player2.play_top_card, player3.play_top_card
+#			cards_on_table.push(card1, card2, card3)
+#			cards_on_table.shuffle!
+#			unless ((@card1.value > @card2.value && @card1.value > @card3.value) || (@card2.value > @card1.value && @card2.value > @card3.value) || (@card3.value > @card1.value && @card3.value > @card2.value))
+#				puts 'war'
+#				play_three_way_round(cards_on_table, players)
+#				puts 'end of war'
+#			else
+#				player1.take_cards(cards_on_table) if(@card1.value > @card2.value && @card1.value > @card3.value)
+#				player2.take_cards(cards_on_table) if(@card2.value > @card1.value && @card2.value > @card3.value)
+#				player3.take_cards(cards_on_table) if(@card3.value > @card1.value && @card3.value > @card2.value)
+#				cards_on_table = []
+#				puts player1.number_of_cards.to_s + " " + player2.number_of_cards.to_s + " " + player3.number_of_cards.to_s
+#			end
+#		else
+#			@players.delete_at(0) if (player1.number_of_cards == 0)
+#			@players.delete_at(1) if (player2.number_of_cards == 0)
+#			@players.delete_at(2) if (player3.number_of_cards == 0)
+#			puts cards_on_table.to_s 
+#			if (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards != 52)
+#				#Here is how to single out the running out of card problem. Who to give the cards is the next step.
+#				puts 'whoops'
+#				@players.at(0).take_cards(cards_on_table) 
+#				cards_on_table = []
+#				puts 'number 0f cards = ' + (player1.number_of_cards + player2.number_of_cards + player3.number_of_cards).to_s
+#			end  
+#			puts cards_on_table.to_s 
+#		end
+#		puts "end of round"
+#	end
 
 	def winner
 		@winner
