@@ -1,6 +1,6 @@
 class WarGame
 	attr_reader :deck, :player1, :player2, :player3, :winner, :players
-
+	attr_accessor :end_round
 	def initialize(player1, player2, player3=nil)	
 		@player1, @player2, @player3 = player1, player2, player3
 		@deck = CardDeck.new
@@ -9,19 +9,15 @@ class WarGame
 		@message2 = ''
 		@message3 = ''
 	end
-
 	def message1
 		@message1
 	end
-
 	def message2
 		@message2
 	end
-
 	def message3
 		@message3
 	end
-	
 	def deal(players)
 		while(@deck.number_of_cards > 0) do
 			players.each do |player|
@@ -29,7 +25,6 @@ class WarGame
 			end
 		end
 	end
-
 	def play_round(cards_on_table=[], players)
 		player1 = players.at(0)
 		player2 = players.at(1)
@@ -57,8 +52,8 @@ class WarGame
 			@winner = player1.name if(player2.number_of_cards == 0)
 			@winner = player2.name if(player1.number_of_cards == 0)
 		end
+		end_round.call(card1, card2, winner) if end_round
 	end
-
 #	def play_three_way_round(cards_on_table=[], players)
 #		puts "start of round"
 #		player1 = players.at(0)
@@ -97,11 +92,9 @@ class WarGame
 #		end
 #		puts "end of round"
 #	end
-
 	def winner
 		@winner
 	end
-
 	def play_game(players)
 		@players = players
 		deck.shuffle
@@ -117,7 +110,4 @@ class WarGame
 		end
 		puts @winner
 	end
-
-
-
 end

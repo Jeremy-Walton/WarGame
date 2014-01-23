@@ -1,0 +1,121 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0  
+\f1\fs36 Terms:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+
+\fs28 Full Stack: Start with server, next level is database. It goes all the way up to UI.\
+\
+System Building: Breaking things(Problems) down into their components. What does each component do. Are you thinking of them as procedures, or objects? Need to hold together well, to achieve whole structure.\
+\
+
+\fs36 Four Questions about components(Answer these well to be a good object oriented designer)
+\fs28 :\
+\
+Conceptual level:\
+1) What is \'93component\'94 responsible for?\
+\
+Specification level(interface or services):\
+2) What questions must this \'93component\'94 answer?\
+3) What commands must this \'93component\'94 execute?\
+\
+Implementation level:\
+4) What information does this \'93component\'94 manage?\
+4.1) And how does it get it?\
+\
+
+\fs36 Deck of cards
+\fs28 :\
+\
+1) Each card is responsible for holding information. Deck level, shuffle, deal, cards left. Deck hold list of cards(unordered or ordered).\
+\
+2) What number is shown on the card, what suit is shown on the card, what color is on the card. Deck must answer. How many cards left? Am I ordered? What is my top card? What is my bottom card? Am I facing up or down?\
+\
+3) Face up, face down.\
+\
+4) It manages three pieces of information. Number(2-10, J, Q, K, A), Suit(Spades, Clubs, Diamonds, Hearts), Color(Red, Black).\
+4.1) Printed on it. Someone draws it on.\
+\
+
+\fs36 Expert Solution
+\fs28 :\
+\
+Take a minimalist approach.\
+1) Managing a collection of cards that don\'92t belong to a player. (Responsibilities should be concise)\
+2) What is the top card. Are there any cards left?\
+3) Shuffle. Deal(to someone?).\
+4) The cards that have not been dealt(and their order.)\
+If you spend too much time on this, you won\'92t get anything done.\
+Don\'92t be too clever.\
+\
+
+\fs36 Play Jeopardy:\
+
+\fs28 Holding group of cards? What is a deck of cards responsible for.\
+Are you shuffled? What questions must the deck answer?\
+\
+
+\fs36 Working with Questions:
+\fs28 \
+\
+Talk with others, confirm ideas or get new ones.\
+Look at an experts solution. Who is this?\
+Play jeopardy with your answers.\
+\
+Simple Programs\
+\
+1) One file.\
+\
+2) Not that long.\
+\
+3) Pretty simple to test/verify\
+	a) Run it\'85 see if the compiler/interpreter says it is syntactically valid.\
+	\
+	b) See if it gets the results you wanted with the given input.\
+\
+Most Applications are a System of Objects.\
+\
+0.5) Red, Green, Refactor.\
+\
+1) Make it Run.\
+	a) Organization of objects that together can respond competently to set of stimuli\
+	\
+	b) This organization must be trustworthy enough to meet the important goals(tests).\
+\
+2) Make it Right.\
+	a) They Should be focused enough to make sure they don\'92t undermine goals of the system and.. \
+\
+3) Make it Fast(if not fast enough).\
+
+\fs36 \
+Sending Messages:\
+\
+
+\fs28 1) Messages to receivers\'85 receivers are objects\
+	a) receivers have names(or identifiers)\
+		1) could have different names in different contexts\
+	b) Could send a message to yourself (first person)\
+2) Messages can return answers\
+\
+3) Messages have names and O-N parameters\
+\
+
+\fs36 Playing Card:\
+\
+
+\fs28 Assume YAGNI(You aren\'92t going to need it).\
+
+\fs36 \
+
+\fs28 1) It is responsible for defining a playing card.\
+\
+2) What rank? What suit?\
+\
+3) None.\
+\
+4) Rank, Suit.}
