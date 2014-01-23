@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>16E0C005-8C54-4322-8AB7-A6A6CE4A56EF</string>
+	<string>ACADAA90-D419-4493-86BB-0270F307DD33</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CrazyEightsModel</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/Jeremy-Walton/WarGame.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Week 5/Code/Objective-C/CrazyEightsModel/CrazyEightsModel.xcodeproj/project.xcworkspace</string>
+	<string>Week 5/Code/Objective-C/CrazyEightsModel/CrazyEightsModel.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>899C527D-3BC7-4B9E-984D-5AD02546FA7A</key>
-		<string>../../../../../..</string>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Jeremy-Walton/WarGame.git</string>
@@ -28,6 +28,14 @@
 	<string>899C527D-3BC7-4B9E-984D-5AD02546FA7A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>899C527D-3BC7-4B9E-984D-5AD02546FA7A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CrazyEightsModel</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
